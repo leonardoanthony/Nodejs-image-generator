@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Gráfico de Gastos</title>
+  <style>
+    body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    canvas { background: #fff; border-radius: 8px; }
+  </style>
+</head>
+<body >
+  <canvas style="background-color: tomato;" id="grafico" width="600" height="400"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const labels = JSON.parse(decodeURIComponent(urlParams.get('labels')));
+    const data = JSON.parse(decodeURIComponent(urlParams.get('data')));
+    const titulo = decodeURIComponent(urlParams.get('titulo'));
+
+    new Chart(document.getElementById('grafico'), {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: titulo,
+          data: data,
+          backgroundColor: 'rgba(54, 162, 235, 0.7)'
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: titulo
+          }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
