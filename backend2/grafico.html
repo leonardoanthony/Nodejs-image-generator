@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Ficha Técnica – Cenoura (100g crua)</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 40px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #f57c00;
+      margin-bottom: 20px;
+    }
+
+    h1::before {
+      content: "🥕 ";
+    }
+
+    .subtitle {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    canvas {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Ficha Técnica – Cenoura (100g crua)</h1>
+    <p class="subtitle">Proporção de Macronutrientes</p>
+    <canvas id="pizzaChart" width="400" height="400"></canvas>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('pizzaChart').getContext('2d');
+
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Proteínas (0.9g)', 'Gorduras Totais (0.2g)', 'Carboidratos (9.6g)'],
+        datasets: [{
+          data: [0.9, 0.2, 9.6],
+          backgroundColor: [
+            '#4caf50', // proteínas
+            '#f44336', // gorduras
+            '#2196f3'  // carboidratos
+          ],
+          borderColor: '#fff',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        animation: false,
+        plugins: {
+          legend: {
+            position: 'bottom'
+          },
+          tooltip: {
+            callbacks: {
+              label: context => `${context.label}: ${context.parsed}g`
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

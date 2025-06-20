@@ -13,16 +13,19 @@ app.post('/gerar-imagem', async (req, res) => {
   const browser = await puppeteer.launch({ headless: 'new' });
   const page = await browser.newPage();
 
-  const url = `file://${path.join(__dirname, 'template.html')}?labels=${encodeURIComponent(JSON.stringify(labels))}&data=${encodeURIComponent(JSON.stringify(data))}&titulo=${encodeURIComponent(titulo)}`;
+  const htmlPath = `file://${path.join(__dirname, 'grafico.html')}`;
+  await page.goto(htmlPath, { waitUntil: 'networkidle0' });
 
-  await page.goto(url, { waitUntil: 'networkidle0' });
+  await new Promise(resolve => setTimeout(resolve, 4000)); // 1 segundo
 
-  const image = await page.screenshot({ type: 'png' });
+  const image = await page.screenshot({ fullPage: true });
 
+  // fs.writeFileSync('relatorio.png', buffer);
   await browser.close();
 
   res.set('Content-Type', 'image/png');
   res.send(image);
+
 });
 
 app.listen(3000, () => console.log('Rodando em http://localhost:3000'));
